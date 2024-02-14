@@ -7,6 +7,13 @@ const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const [data, setData] = useState({});
 
+  function signOut() {
+    localStorage.removeItem('@rocketnotes:user');
+    localStorage.removeItem('@rocketnotes:token');
+
+    setData({});
+  }
+
   async function singIn({ email, password }) {
     try {
       const response = await api.post('/sessions', { email, password });
@@ -41,7 +48,13 @@ function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ singIn, user: data.user }}>
+    <AuthContext.Provider
+      value={{
+        singIn,
+        signOut,
+        user: data.user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
