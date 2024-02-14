@@ -7,13 +7,6 @@ const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const [data, setData] = useState({});
 
-  function signOut() {
-    localStorage.removeItem('@rocketnotes:user');
-    localStorage.removeItem('@rocketnotes:token');
-
-    setData({});
-  }
-
   async function singIn({ email, password }) {
     try {
       const response = await api.post('/sessions', { email, password });
@@ -31,6 +24,13 @@ function AuthProvider({ children }) {
         alert('Não foi possível entrar.');
       }
     }
+  }
+
+  function signOut() {
+    localStorage.removeItem('@rocketnotes:user');
+    localStorage.removeItem('@rocketnotes:token');
+
+    setData({});
   }
 
   useEffect(() => {
