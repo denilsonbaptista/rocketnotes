@@ -98,7 +98,7 @@ export function Home() {
         <Section title="Minha nota">
           {notes.map(note => (
             <Note
-              key={note.id}
+              key={String(note.id)}
               data={note}
               onClick={() => handleDetails(note.id)}
             />
